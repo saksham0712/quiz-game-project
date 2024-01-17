@@ -35,7 +35,7 @@
         .option {
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #4caf50;
+            background-color: #4891da;
             color: #fff;
             cursor: pointer;
             border: none;
@@ -56,55 +56,144 @@
 
 <body>
     <div id="quiz-container">
-        <div id="question">what is your name ? </div>
-        <div id="options"> </div>
-        <div id="score">score: 0</div>
+        <div id="question"></div>
+        <div id="options"></div>
+        <div id="score">Score: 0</div>
     </div>
 
+
     <script>
+        const quizData = [
+            {
+                question: 'what is the capital of India?',
+                options: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
+                correctAnswer: 'Dehli'
+            },
+            {
+                question: 'What is the capital of Japan?',
+                options: ['Seoul', 'Beijing', 'Tokyo', 'Bangkok'],
+                correctAnswer: 'Tokyo'
+            },
+            {
+                question: 'Which programming language is often used for web development?',
+                options: ['Python', 'Java', 'JavaScript', 'C++'],
+                correctAnswer: 'JavaScript'
+            },
+            {
+                question: 'In which year did the Titanic sink?',
+                options: ['1912', '1905', '1920', '1898'],
+                correctAnswer: '1912'
+            },
+            {
+                question: 'What is the largest ocean on Earth?',
+                options: ['Atlantic Ocean', 'Indian Ocean', 'Arctic Ocean', 'Pacific Ocean'],
+                correctAnswer: 'Pacific Ocean'
+            },
+            {
+                question: 'Who wrote "Romeo and Juliet"?',
+                options: ['Charles Dickens', 'William Shakespeare', 'Jane Austen', 'Leo Tolstoy'],
+                correctAnswer: 'William Shakespeare'
+            },
+            {
+                question: 'What is the capital of Australia?',
+                options: ['Sydney', 'Melbourne', 'Canberra', 'Perth'],
+                correctAnswer: 'Canberra'
+            },
+            {
+                question: 'What is the capital of France?',
+                options: ['Paris', 'London', 'Berlin', 'Madrid'],
+                correctAnswer: 'Paris'
+            },
+            {
+                question: 'Which planet is known as the Red Planet?',
+                options: ['Venus', 'Mars', 'Jupiter', 'Saturn'],
+                correctAnswer: 'Mars'
+            },
+            {
+                question: 'What is the largest mammal on Earth?',
+                options: ['Elephant', 'Blue Whale', 'Giraffe', 'Hippopotamus'],
+                correctAnswer: 'Blue Whale'
+            }
+        ]
+
         const quizContainer = document.getElementById('quiz-container');
         const questionElement = document.getElementById('question');
         const optionsContainer = document.getElementById('options');
         const scoreElement = document.getElementById('score');
 
-        const quizData = [
-            {
-                question: 'what is the capital of India?',
-                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
-                correctAnswer: 'Dehli'
-            },
-            {
-                question: 'what is the capital of India?',
-                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
-                correctAnswer: 'Dehli'
-            },
-            {
-                question: 'what is the capital of India?',
-                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
-                correctAnswer: 'Dehli'
-            },
-            {
-                question: 'what is the capital of India?',
-                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
-                correctAnswer: 'Dehli'
-            },
-            {
-                question: 'what is the capital of India?',
-                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
-                correctAnswer: 'Dehli'
-            },
-        ]
+        let score = 0;
 
-        
-        // function randomNumberCreater(min, max) {
-        //     return Math.floor(Math.random() * (max - min + 1) + min)
-        // }
-        
-        // const genratedNumber = randomNumberCreater(1, 6)
-            const randomNumber = Math.floor(Math.random() * quizData.length)
-            const randomQuestion = quizData[randomNumber]
-            console.log(randomQuestion);
-            
+        let currentQuestionIndex = 0;
+
+
+        // const randomNumber = Math.floor(Math.random() * quizData.length)
+        // const randomQuestion = quizData[randomNumber]
+
+
+        // const currentQuestionIndex = quizData[randomNumber]
+        // console.log(randomQuestion);
+
+        function showQuestion() {
+            const currentQuestion = quizData[currentQuestionIndex]
+
+            questionElement.textContent = currentQuestion.question
+            optionsContainer.innerHTML = '';
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button')
+                button.className = 'option';
+                button.textContent = option
+                optionsContainer.appendChild(button)
+                button.addEventListener('click', () => checkAnswer(option))
+
+            })
+        }
+
+        function checkAnswer(selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex]
+            if (selectedOption === currentQuestion.correctAnswer) {
+                score++
+                // showQuestion()
+                console.log('very good');
+                // randomNumber+1
+                // console.log(randomQuestion++);
+
+            }
+
+            // else{
+            //     console.log(quizData.length);
+
+            // }
+
+            currentQuestionIndex++
+
+
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            }
+            else {
+                showResult()
+            }
+        }
+
+        function showResult() {
+            if (score < 7) {
+                quizContainer.innerHTML = `
+                <h2>Your Final score: </h2>
+                <p> ${score}out of ${quizData.length}</p>
+                <p>Learning is a journey, not a destination.& thodi sharam bhi karo</p>
+              `;
+            } else if (score = 7) {
+                quizContainer.innerHTML =
+                    `<h2>Your Final score: ${score}out of ${quizData.length} </h2>
+                <p>chakk te fatte</p>`;
+            } else {
+                quizContainer.innerHTML = `
+              <h2>Your Final score: ${score}out of ${quizData.length} </h2>
+              <p>oh my god tuc great ho</p>`;
+            }
+        }
+        showQuestion()
     </script>
 </body>
 
