@@ -35,7 +35,7 @@
         .option {
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #4caf50;
+            background-color: #4891da;
             color: #fff;
             cursor: pointer;
             border: none;
@@ -56,55 +56,90 @@
 
 <body>
     <div id="quiz-container">
-        <div id="question">what is your name ? </div>
-        <div id="options"> </div>
-        <div id="score">score: 0</div>
+        <div id="question"></div>
+        <div id="options"></div>
+        <div id="score">Score: 0</div>
     </div>
 
+
     <script>
+        const quizData = [
+            {
+                question: 'what is the capital of India?',
+                options: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
+                correctAnswer: 'Dehli'
+            },
+            {
+                question: 'what is the capital of India?',
+                options: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
+                correctAnswer: 'Dehli'
+            },
+            {
+                question: 'what is the capital of India?',
+                options: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
+                correctAnswer: 'Dehli'
+            },
+            {
+                question: 'what is the capital of India?',
+                options: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
+                correctAnswer: 'Dehli'
+            },
+            {
+                question: 'what is the capital of India?',
+                options: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
+                correctAnswer: 'Dehli'
+            },
+            {
+                question: 'What is the capital of France?',
+                options: ['Paris', 'London', 'Berlin', 'Madrid'],
+                correctAnswer: 'Paris'
+            },
+            {
+                question: 'Which planet is known as the Red Planet?',
+                options: ['Venus', 'Mars', 'Jupiter', 'Saturn'],
+                correctAnswer: 'Mars'
+            },
+            {
+                question: 'What is the largest mammal on Earth?',
+                options: ['Elephant', 'Blue Whale', 'Giraffe', 'Hippopotamus'],
+                correctAnswer: 'Blue Whale'
+            }
+        ]
+        
         const quizContainer = document.getElementById('quiz-container');
         const questionElement = document.getElementById('question');
         const optionsContainer = document.getElementById('options');
         const scoreElement = document.getElementById('score');
 
-        const quizData = [
-            {
-                question: 'what is the capital of India?',
-                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
-                correctAnswer: 'Dehli'
-            },
-            {
-                question: 'what is the capital of India?',
-                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
-                correctAnswer: 'Dehli'
-            },
-            {
-                question: 'what is the capital of India?',
-                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
-                correctAnswer: 'Dehli'
-            },
-            {
-                question: 'what is the capital of India?',
-                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
-                correctAnswer: 'Dehli'
-            },
-            {
-                question: 'what is the capital of India?',
-                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
-                correctAnswer: 'Dehli'
-            },
-        ]
-
+        let score = 0; 
         
-        // function randomNumberCreater(min, max) {
-        //     return Math.floor(Math.random() * (max - min + 1) + min)
-        // }
-        
-        // const genratedNumber = randomNumberCreater(1, 6)
             const randomNumber = Math.floor(Math.random() * quizData.length)
             const randomQuestion = quizData[randomNumber]
-            console.log(randomQuestion);
-            
+            // console.log(randomQuestion);
+        
+            function showQuestion() {
+                const currentQuestion = randomQuestion
+                questionElement.textContent = currentQuestion.question
+                optionsContainer.innerHTML = '';
+
+                currentQuestion.options.forEach((option, index) => {
+                    const button = document.createElement('button')
+                    button.className = 'option';
+                    button.textContent = option
+                    optionsContainer.appendChild(button)
+                    button.addEventListener('click', () => checkAnswer(option))
+
+                })
+            }
+
+            function checkAnswer(selectedOption) {
+                const currentQuestion = randomQuestion
+                if (selectedOption === currentQuestion.correctAnswer) {
+                    score++
+                }
+                showQuestion()
+            }
+            showQuestion()
     </script>
 </body>
 
