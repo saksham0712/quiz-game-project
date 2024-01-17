@@ -1,11 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        #quiz-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #question {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        #options {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .option {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .option:hover {
+            background-color: #45a049;
+        }
+
+        #score {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <div id="quiz-container">
+        <div id="question">what is your name ? </div>
+        <div id="options"> </div>
+        <div id="score">score: 0</div>
+    </div>
+
+    <script>
+        const quizContainer = document.getElementById('quiz-container');
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options');
+        const scoreElement = document.getElementById('score');
+
+        const quizData = [
+            {
+                question: 'what is the capital of India?',
+                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
+                correctAnswer: 'Dehli'
+            },
+            {
+                question: 'what is the capital of India?',
+                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
+                correctAnswer: 'Dehli'
+            },
+            {
+                question: 'what is the capital of India?',
+                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
+                correctAnswer: 'Dehli'
+            },
+            {
+                question: 'what is the capital of India?',
+                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
+                correctAnswer: 'Dehli'
+            },
+            {
+                question: 'what is the capital of India?',
+                answer: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
+                correctAnswer: 'Dehli'
+            },
+        ]
+
+        
+        // function randomNumberCreater(min, max) {
+        //     return Math.floor(Math.random() * (max - min + 1) + min)
+        // }
+        
+        // const genratedNumber = randomNumberCreater(1, 6)
+            const randomNumber = Math.floor(Math.random() * quizData.length)
+            const randomQuestion = quizData[randomNumber]
+            console.log(randomQuestion);
+            
+    </script>
 </body>
-</html>>
+
+</html>
