@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        #quiz-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #question {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        #options {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .option {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #4891da;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .option:hover {
+            background-color: #45a049;
+        }
+
+        #score {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="quiz-container">
+        <div id="question"></div>
+        <div id="options"></div>
+        <div id="score">Score: 0</div>
+    </div>
+
+
+    <script>
+        const quizData = [
+            {
+                question: 'what is the capital of India?',
+                options: ['Noida', 'Dehli', 'Uttar-pardesh', 'Bihar'],
+                correctAnswer: 'Dehli'
+            },
+            {
+                question: 'What is the capital of Japan?',
+                options: ['Seoul', 'Beijing', 'Tokyo', 'Bangkok'],
+                correctAnswer: 'Tokyo'
+            },
+            {
+                question: 'Which programming language is often used for web development?',
+                options: ['Python', 'Java', 'JavaScript', 'C++'],
+                correctAnswer: 'JavaScript'
+            },
+            {
+                question: 'In which year did the Titanic sink?',
+                options: ['1912', '1905', '1920', '1898'],
+                correctAnswer: '1912'
+            },
+            {
+                question: 'What is the largest ocean on Earth?',
+                options: ['Atlantic Ocean', 'Indian Ocean', 'Arctic Ocean', 'Pacific Ocean'],
+                correctAnswer: 'Pacific Ocean'
+            },
+            {
+                question: 'Who wrote "Romeo and Juliet"?',
+                options: ['Charles Dickens', 'William Shakespeare', 'Jane Austen', 'Leo Tolstoy'],
+                correctAnswer: 'William Shakespeare'
+            },
+            {
+                question: 'What is the capital of Australia?',
+                options: ['Sydney', 'Melbourne', 'Canberra', 'Perth'],
+                correctAnswer: 'Canberra'
+            },
+            {
+                question: 'What is the capital of France?',
+                options: ['Paris', 'London', 'Berlin', 'Madrid'],
+                correctAnswer: 'Paris'
+            },
+            {
+                question: 'Which planet is known as the Red Planet?',
+                options: ['Venus', 'Mars', 'Jupiter', 'Saturn'],
+                correctAnswer: 'Mars'
+            },
+            {
+                question: 'What is the largest mammal on Earth?',
+                options: ['Elephant', 'Blue Whale', 'Giraffe', 'Hippopotamus'],
+                correctAnswer: 'Blue Whale'
+            }
+        ]
+
+        const quizContainer = document.getElementById('quiz-container');
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options');
+        const scoreElement = document.getElementById('score');
+
+        let score = 0;
+        var currentdata = quizData;
+        // let currentQuestionIndex = 0;
+
+
+
+        // const currentQuestionIndex = quizData[randomNumber]
+        // console.log(randomQuestion);
+        var randomNumber =0
+        var randomQuestion ={}
+        function showQuestion() {
+        randomNumber = Math.floor(Math.random() * currentdata.length)
+        randomQuestion = currentdata[randomNumber]
+            const currentQuestion = randomQuestion
+            console.log(currentQuestion.question)
+
+            questionElement.textContent = currentQuestion.question
+            optionsContainer.innerHTML = '';
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button')
+                button.className = 'option';
+                button.textContent = option
+                optionsContainer.appendChild(button)
+                button.addEventListener('click', () => checkAnswer(option))
+
+            })
+            console.log(currentdata.length)
+        }
+
+        const indexToRemove = randomNumber
+        function checkAnswer(selectedOption) {
+            const currentQuestion = randomQuestion
+            if (selectedOption === currentQuestion.correctAnswer) {
+                score++
+                // showQuestion()
+                console.log('very good');
+                // randomNumber+1
+                // console.log(randomQuestion++);
+                // console.log(`${randomQuestion} + ${randomNumber}`);
+
+                // const removeElement = quizData.splice(randomNumber, 1)
+                // console.log("hello" + removeElement);
+
+                // const indexToRemove = randomNumber
+                if (indexToRemove >= 0 && indexToRemove < quizData.length) {
+                    const removedItem = currentdata.splice(indexToRemove, 1)[0];
+
+                    console.log("Removed Item:", removedItem);
+                    console.log("Array after removal:", currentdata);
+                    
+                } else {
+                    console.log("Invalid index");
+                }
+            }
+            
+        }
+       showQuestion();
+        // else{
+        //     console.log(quizData.length);
+
+        // }
+
+        // currentQuestionIndex++
+
+
+        // if (indexToRemove < quizData.length) {
+        //     showQuestion();
+        // }
+        // else {
+        //     showResult()
+        // }
+
+
+        // function showResult() {
+        //     if (score < 7) {
+        //         quizContainer.innerHTML = `
+        //         <h2>Your Final score: </h2>
+        //         <p> ${score}out of ${quizData.length}</p>
+        //         <p>Learning is a journey, not a destination.& thodi sharam bhi karo</p>
+        //       `;
+        //     }
+        //     else if (score <= 7) {
+        //         quizContainer.innerHTML =
+        //             `<h2>Your Final score: ${score}out of ${quizData.length} </h2>
+        //         <p>${getRandomMotivation}</p>`;
+        //     }
+        //     else {
+        //         quizContainer.innerHTML = `
+        //       <h2>Your Final score: ${score}out of ${quizData.length} </h2>
+        //       <p>${getRandomMotivation} + oh my god tuc great ho</p>`;
+        //     }
+        // }
+        // // console.log(score);
+        // function getRandomMotivation() {
+        //     const quots = [
+        //         "Great job! Keep challenging yourself.",
+        //         "You're on your way to becoming a quiz master!",
+        //         "Learning is a journey, not a destination."
+        //     ]
+
+        //     const randomIndexQuotes = Math.floor(MAth.random() * quots.length)
+        //     return quots[randomIndexQuotes]
+        // }
+
+        // showQuestion()
+    </script>
+</body>
+
+</html>
