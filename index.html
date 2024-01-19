@@ -120,10 +120,12 @@
         const questionElement = document.getElementById('question');
         const optionsContainer = document.getElementById('options');
         const scoreElement = document.getElementById('score');
+        const quizlength = 5
 
         let score = 0;
-
+        let currentquizdata = quizData
         let currentQuestionIndex = 0;
+        let questionremaining = 5
 
 
         // const randomNumber = Math.floor(Math.random() * quizData.length)
@@ -134,63 +136,68 @@
         // console.log(randomQuestion);
 
         function showQuestion() {
-            const currentQuestion = quizData[currentQuestionIndex]
+            currentQuestionIndex = Math.floor(Math.random()* currentquizdata.length)
+            const currentQuestion = currentquizdata[currentQuestionIndex]
 
             questionElement.textContent = currentQuestion.question
             optionsContainer.innerHTML = '';
-
+            questionremaining -= 1
             currentQuestion.options.forEach((option, index) => {
                 const button = document.createElement('button')
                 button.className = 'option';
                 button.textContent = option
                 optionsContainer.appendChild(button)
-                button.addEventListener('click', () => checkAnswer(option))
+                button.addEventListener('click', () => checkAnswer(option, currentQuestion))
 
             })
         }
 
-        function checkAnswer(selectedOption) {
-            const currentQuestion = quizData[currentQuestionIndex]
+        function checkAnswer(selectedOption, currentQuestion) {
+            // const currentQuestion = quizData[currentQuestionIndex]
             if (selectedOption === currentQuestion.correctAnswer) {
                 score++
                 // showQuestion()
                 console.log('very good');
+                document.getElementById("score").textContent = `Score: ${score}`
                 // randomNumber+1
                 // console.log(randomQuestion++);
 
             }
-
+            console.log(currentquizdata)
+            var j = currentquizdata.indexOf(currentQuestion)
+            currentquizdata.splice(j,1)
+            console.log(currentquizdata)
             // else{
             //     console.log(quizData.length);
 
             // }
 
-            currentQuestionIndex++
+           
 
 
-            if (currentQuestionIndex < quizData.length) {
+            if (questionremaining > 0) {
                 showQuestion();
             }
             else {
-                showResult()
+                showResult(score)
             }
         }
 
-        function showResult() {
-            if (score < 7) {
+        function showResult(score) {
+            if (score < Math.floor(0.4*quizlength)) {
                 quizContainer.innerHTML = `
                 <h2>Your Final score: </h2>
-                <p> ${score}out of ${quizData.length}</p>
+                <p> ${score}out of ${quizlength}</p>
                 <p>Learning is a journey, not a destination.& thodi sharam bhi karo</p>
               `;
-            } else if (score = 7) {
+            } else if (score >= Math.floor(0.8*quizlength)) {
                 quizContainer.innerHTML =
-                    `<h2>Your Final score: ${score}out of ${quizData.length} </h2>
-                <p>chakk te fatte</p>`;
+                    `<h2>Your Final score: ${score}out of ${quizlength} </h2>
+                <p>oh my god tuc great ho</p>`;
             } else {
                 quizContainer.innerHTML = `
-              <h2>Your Final score: ${score}out of ${quizData.length} </h2>
-              <p>oh my god tuc great ho</p>`;
+              <h2>Your Final score: ${score}out of ${quizlength} </h2>
+              <p>chakk te fatte</p>`;
             }
         }
         showQuestion()
